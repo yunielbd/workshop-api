@@ -1,7 +1,7 @@
 package com.workshop.controller;
 
-import com.workshop.dto.CreateVehicleRequest;
-import com.workshop.dto.VehicleDTO;
+import com.workshop.dto.model.CreateVehicleRequest;
+import com.workshop.dto.model.VehicleDTO;
 import com.workshop.model.enums.VehicleType;
 import com.workshop.service.VehicleService;
 import io.swagger.v3.oas.annotations.Operation;

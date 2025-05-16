@@ -1,5 +1,5 @@
 // DieselVehicleDTO.java
-package com.workshop.dto;
+package com.workshop.dto.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

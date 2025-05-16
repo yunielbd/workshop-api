@@ -1,4 +1,4 @@
-package com.workshop.dto;
+package com.workshop.dto.model;
 
 import com.workshop.model.enums.BatteryType;
 import com.workshop.model.enums.FuelType;
@@ -17,10 +17,13 @@ public class CreateVehicleRequest {
     @NotNull
     private VehicleType type;
 
-    @NotBlank(groups = { GAS.class, DIESEL.class })
+//    @NotBlank(groups = { GAS.class, DIESEL.class })
+//    private String licensePlate;
+
+    @NotNull
     private String licensePlate;
 
-    @NotBlank(groups = ELECTRIC.class)
+    @NotNull
     private String vin;
 
     @NotNull(groups = DIESEL.class)

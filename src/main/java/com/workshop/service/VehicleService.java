@@ -1,22 +1,19 @@
 package com.workshop.service;
 
+import com.workshop.dto.model.VehicleDTO;
 import com.workshop.mapper.VehicleMapper;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
-import com.workshop.dto.CreateVehicleRequest;
-import com.workshop.dto.*;
+import com.workshop.dto.model.CreateVehicleRequest;
 import com.workshop.exception.NotFoundException;
 import com.workshop.model.entities.*;
 import com.workshop.model.enums.VehicleType;
 import com.workshop.repository.VehicleRepository;
 import org.springframework.stereotype.Service;
-import java.util.stream.Collectors;
 
 
 import java.util.List;
 import java.util.UUID;
-
-import static com.workshop.model.enums.VehicleType.*;
 
 @Service
 public class VehicleService {

@@ -1,6 +1,6 @@
 package com.workshop.mapper;
 
-import com.workshop.dto.*;
+import com.workshop.dto.model.*;
 import com.workshop.model.entities.*;
 import com.workshop.model.enums.VehicleType;
 import org.mapstruct.*;
