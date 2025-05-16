@@ -32,7 +32,7 @@ public class VehicleController {
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Successfully retrieved list")
     })
-    @GetMapping
+    @GetMapping("/all")
     public List<VehicleDTO> listAll() {
         return service.getInventory();
     }
@@ -75,7 +75,7 @@ public class VehicleController {
             @ApiResponse(responseCode = "204", description = "Vehicle checked out successfully"),
             @ApiResponse(responseCode = "404", description = "Vehicle not found")
     })
-    @PatchMapping("/{id}/checkout")
+    @PatchMapping("/checkout/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void checkOut(
             @Parameter(description = "UUID of the vehicle to check out", required = true)
