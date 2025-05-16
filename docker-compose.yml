@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: workshop-postgres
+    environment:
+      POSTGRES_DB: workshop
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: $3cr3t*123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

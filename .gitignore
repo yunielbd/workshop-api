@@ -1,0 +1,54 @@
+# Java class files
+*.class
+
+# Maven / Gradle / sbt / other build tool directories
+target/
+build/
+out/
+
+# IDEs y editores
+.idea/
+*.iml
+.idea_modules/
+.settings/
+.vscode/
+
+# Dependencias del gestor de paquetes
+/node_modules/
+/dist/
+/save-uploads/
+
+# Configuración de Spring Boot
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.tgz
+
+# Archivos temporales y de logs
+*.log
+*.tmp
+*.bak
+*.swp
+.DS_Store
+Thumbs.db
+
+# Archivos generados por IntelliJ IDEA
+*.ipr
+*.iws
+
+# Otros archivos de configuración específicos
+.profile
+
+# Archivos de entorno y secrets
+*.env
+
+# IntelliJ run configurations
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/usageStatistics.xml
+.idea/hotSwapAgent.xml
+
+# Personalización para protección de archivos
+!.gitignore

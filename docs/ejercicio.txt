@@ -1,0 +1,14 @@
+Una empresa de talleres registra de cada vehículo que entra su matrícula y el número de identificación (VIN). Admite vehículos de diesel, gasolina y eléctricos. De los vehículos de diesel registra además el tipo de bomba de inyección que usa, la cual puede ser lineal o rotatoria. De los eléctricos registra el tipo de batería (GEL o LITIO) y el voltaje y la corriente de la batería. En el caso de los de gasolina se registra el tipo de combustible que usa, que puede ser B83, B90, B94 o B100, o una combinación de estos.
+
+Los vehículos pueden ser reconvertidos o no, o sea, llevados de un tipo de combustible a otro. La empresa solo admite reconversión de vehículos eléctricos a gasolina.
+
+La empresa desea contar con una aplicación web mediante la cuál pueda realizar las siguientes operaciones:
+
+•⁠ ⁠Obtener el inventario de vehículos en el taller. Poder realizar búsqueda sobre el inventario por el tipo de vehículo.
+•⁠ Dar entrada y salida de vehículos, evitar duplicados con la misma matrícula y VIN
+•⁠ ⁠Obtener la información de registro de los vehículos en el inventario. Esta información se codifica de la siguiente manera:
+Vehículos diesel: Matrícula + tipo de bomba de inyección
+Vehículos eléctricos: VIN + Voltaje + Corriente + Tipo de batería
+Vehículos de gasolina: Matricula + Tipos de combustible que usa.
+
+En caso que uno de los vehículos sea convertible, además de la información de registro se debe obtener los datos de reconversión: Matrícula + tipo de combustible que usará luego de reconvertido.
