@@ -25,6 +25,6 @@ public abstract class Vehicle {
     @Column(nullable = false)
     private VehicleType type;
 
-    @Column(nullable = false)
-    private boolean inWorkshop = true;
+//    @Column(nullable = false)
+//    private boolean inWorkshop = true;
 }

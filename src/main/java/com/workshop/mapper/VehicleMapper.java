@@ -24,17 +24,17 @@ public interface VehicleMapper {
     GasolineVehicleDTO toGasolineDto(GasolineVehicle v);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "inWorkshop", constant = "true")
-//    @Mapping(target = "type", source = "type") // Directly map the VehicleType
+//    @Mapping(target = "inWorkshop", constant = "true")
+    @Mapping(target = "type", source = "type") // Directly map the VehicleType
     DieselVehicle fromCreateDieselRequest(CreateVehicleRequest req);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "inWorkshop", constant = "true")
+//    @Mapping(target = "inWorkshop", constant = "true")
     @Mapping(target = "type", source = "type") // Directly map the VehicleType
     ElectricVehicle fromCreateElectricRequest(CreateVehicleRequest req);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "inWorkshop", constant = "true")
+//    @Mapping(target = "inWorkshop", constant = "true")
     @Mapping(target = "type", source = "type") // Directly map the VehicleType
     GasolineVehicle fromCreateGasolineRequest(CreateVehicleRequest req);
 

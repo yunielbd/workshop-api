@@ -29,7 +29,8 @@ public class VehicleService {
     }
 
     public List<VehicleDTO> getInventory() {
-        return vehicleRepo.findByInWorkshopTrue()
+//        return vehicleRepo.findByInWorkshopTrue()
+        return vehicleRepo.findAll()
                 .stream()
                 .map(mapper::toDto)
                 .toList();
@@ -58,11 +59,18 @@ public class VehicleService {
         return mapper.toDto(saved);
     }
 
-    public void checkOut(UUID id) {
-        Vehicle v = vehicleRepo.findById(id)
-                .orElseThrow(() -> new NotFoundException("Vehicle not found"));
-        v.setInWorkshop(false);
-        vehicleRepo.save(v);
+//    public void checkOut(UUID id) {
+//        Vehicle v = vehicleRepo.findById(id)
+//                .orElseThrow(() -> new NotFoundException("Vehicle not found"));
+//        v.setInWorkshop(false);
+//        vehicleRepo.save(v);
+//    }
+
+    public void deleteVehicle(UUID id) {
+        if (!vehicleRepo.existsById(id)) {
+            throw new NotFoundException("Vehicle not found");
+        }
+        vehicleRepo.deleteById(id);
     }
 
 //    // ——— Conversión entidad → DTO ———

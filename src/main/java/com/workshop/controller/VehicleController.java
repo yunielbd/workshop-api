@@ -1,10 +1,13 @@
 package com.workshop.controller;
 
+import com.workshop.dto.exception.ValidationErrorResponseDTO;
 import com.workshop.dto.model.CreateVehicleRequest;
 import com.workshop.dto.model.VehicleDTO;
 import com.workshop.model.enums.VehicleType;
 import com.workshop.service.VehicleService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -75,12 +78,32 @@ public class VehicleController {
             @ApiResponse(responseCode = "204", description = "Vehicle checked out successfully"),
             @ApiResponse(responseCode = "404", description = "Vehicle not found")
     })
-    @PatchMapping("/checkout/{id}")
+    @DeleteMapping("/checkout/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void checkOut(
             @Parameter(description = "UUID of the vehicle to check out", required = true)
             @PathVariable UUID id
     ) {
-        service.checkOut(id);
+//        service.checkOut(id);
+        service.deleteVehicle(id);
+    }
+
+    @Operation(
+            summary = "Remove a vehicle",
+            description = "Delete a vehicle from the inventory by its ID."
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "204", description = "Vehicle removed successfully"),
+            @ApiResponse(responseCode = "404", description = "Vehicle not found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ValidationErrorResponseDTO.class)))
+    })
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteVehicle(
+            @Parameter(description = "UUID of the vehicle to remove", required = true)
+            @PathVariable UUID id
+    ) {
+        service.deleteVehicle(id);
     }
 }
