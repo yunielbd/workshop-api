@@ -11,7 +11,7 @@
 	<groupId>com.workshop</groupId>
 	<artifactId>vctrl</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>vctrl</name>
+	<name>workshop-api</name>
 	<description>Tarea técnica gestión de taller de vehículos (Doce Leguas)</description>
 	<url/>
 	<licenses>

@@ -9,7 +9,7 @@ import java.util.Set;
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class GasolineVehicleDTO extends VehicleDTO {
-    private String licensePlate;
+//    private String licensePlate;
     private Set<String> fuelTypes;
     private boolean wasConverted;
 }

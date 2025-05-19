@@ -9,4 +9,5 @@ public abstract class VehicleDTO {
     private UUID id;
     private String type;
     private String vin;
+    private String licensePlate;
 }

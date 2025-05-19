@@ -6,6 +6,15 @@ import lombok.*;
 import java.util.UUID;
 
 @Entity
+@Table(
+        name = "vehicle",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "uk_vehicle_license_vin",
+                        columnNames = { "license_plate", "vin" }
+                )
+        }
+)
 @Inheritance(strategy = InheritanceType.JOINED)
 @Getter @Setter
 @NoArgsConstructor
@@ -15,10 +24,10 @@ public abstract class Vehicle {
     @GeneratedValue
     private UUID id;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String licensePlate;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String vin;
 
     @Enumerated(EnumType.STRING)

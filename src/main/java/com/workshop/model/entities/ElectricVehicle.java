@@ -19,6 +19,7 @@ public class ElectricVehicle extends Vehicle {
     @Column(nullable = false)
     private double current;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "conversion_id")
     private Conversion conversion;
 }

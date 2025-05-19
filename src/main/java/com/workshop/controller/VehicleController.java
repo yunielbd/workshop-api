@@ -2,6 +2,7 @@ package com.workshop.controller;
 
 import com.workshop.dto.exception.ValidationErrorResponseDTO;
 import com.workshop.dto.model.CreateVehicleRequest;
+import com.workshop.dto.model.RegistrationInfoDTO;
 import com.workshop.dto.model.VehicleDTO;
 import com.workshop.model.enums.VehicleType;
 import com.workshop.service.VehicleService;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Tag(name = "Vehicles", description = "Manage the workshop vehicle inventory")
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/vehicles")
 public class VehicleController {
@@ -88,6 +90,13 @@ public class VehicleController {
         service.deleteVehicle(id);
     }
 
+    @Operation(summary = "Get encoded registration info for all vehicles")
+    @GetMapping("/registration-info")
+    public List<RegistrationInfoDTO> registrationInfo() {
+        return service.getRegistrationInfo();
+    }
+
+
     @Operation(
             summary = "Remove a vehicle",
             description = "Delete a vehicle from the inventory by its ID."
@@ -105,5 +114,21 @@ public class VehicleController {
             @PathVariable UUID id
     ) {
         service.deleteVehicle(id);
+    }
+
+    @Operation(
+            summary     = "Get registration info for one vehicle",
+            description = "Returns the encoded registrationInfo and conversionInfo for the specified vehicle."
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved registration info"),
+            @ApiResponse(responseCode = "404", description = "Vehicle not found")
+    })
+    @GetMapping("/{id}/registration-info")
+    public RegistrationInfoDTO getRegistrationInfo(
+            @Parameter(description = "UUID of the vehicle", required = true)
+            @PathVariable UUID id
+    ) {
+        return service.getRegistrationInfoById(id);
     }
 }

@@ -5,9 +5,11 @@ import com.workshop.dto.exception.ViolationDto;
 import com.workshop.exception.NotFoundException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
@@ -83,4 +86,30 @@ public class GlobalExceptionHandler {
     public Map<String,String> onNotFound(NotFoundException ex) {
         return Map.of("error", ex.getMessage());
     }
+
+    @ExceptionHandler(org.springframework.dao.DataIntegrityViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String,String> handleDuplicateKey(DataIntegrityViolationException ex) {
+        return Map.of("error", "Duplicate vehicle (licensePlate + vin must be unique)");
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ValidationErrorResponseDTO> handleJsonParseError(HttpMessageNotReadableException ex) {
+        // Obtiene el mensaje raíz (por ejemplo “Unexpected character…”)
+        String causeMessage = Optional.ofNullable(ex.getMostSpecificCause())
+                .map(Throwable::getMessage)
+                .orElse(ex.getMessage());
+
+        // Construye un Violation único para el error de JSON
+        var violation = new ViolationDto("json", "Malformed JSON request: " + causeMessage);
+
+        // Prepara la respuesta igual que en validaciones
+        ValidationErrorResponseDTO body =
+                new ValidationErrorResponseDTO(HttpStatus.BAD_REQUEST, List.of(violation));
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(body);
+    }
 }
+

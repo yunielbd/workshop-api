@@ -12,13 +12,6 @@ public interface VehicleRepository extends JpaRepository<Vehicle, UUID> {
     Optional<Vehicle> findByLicensePlate(String licensePlate);
     Optional<Vehicle> findByVin(String vin);
 
-    // List all vehicles still in workshop
-//    List<Vehicle> findByInWorkshopTrue();
-
     // List by type
     List<Vehicle> findByType(VehicleType type);
-
-    // Check duplicates
-    boolean existsByLicensePlate(String licensePlate);
-    boolean existsByVin(String vin);
 }

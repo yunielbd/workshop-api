@@ -39,6 +39,8 @@ public class CreateVehicleRequest {
     @NotEmpty(groups = GAS.class)
     private Set<FuelType> fuelTypes;
 
+    private Set<@NotNull FuelType> conversionFuelTypes;
+
     public interface DIESEL {}
     public interface ELECTRIC {}
     public interface GAS {}

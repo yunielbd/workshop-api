@@ -14,7 +14,13 @@ public interface VehicleMapper {
 
     DieselVehicleDTO toDieselDto(DieselVehicle v);
 
-    ElectricVehicleDTO toElectricDto(ElectricVehicle v);
+    @Mapping(target = "conversionFuelTypes",
+            expression = "java(e.getConversion()!=null ? "
+                    + "e.getConversion().getConvertedFuelTypes().stream()"
+                    +     ".map(Enum::name)"
+                    +     ".collect(Collectors.toSet())"
+                    + " : null)")
+    ElectricVehicleDTO toElectricDto(ElectricVehicle e);
 
     @Mapping(target = "wasConverted", constant = "false")
     @Mapping(
@@ -59,5 +65,44 @@ public interface VehicleMapper {
 
     default VehicleType mapStringToVehicleType(String type) {
         return type != null ? VehicleType.valueOf(type) : null;
+    }
+
+    // Diesel → VehicleRegistrationInfoDTO
+    @Mapping(target = "id",               source = "d.id")
+//    @Mapping(target = "type",             expression = "java(d.getType().name())")
+    @Mapping(target = "type", source = "type")
+    @Mapping(target = "registrationInfo", expression = "java(d.getLicensePlate() + d.getInjectionPumpType().name())")
+    RegistrationInfoDTO toRegistrationInfoDto(DieselVehicle d);
+
+    // Electric → VehicleRegistrationInfoDTO
+    @Mapping(target = "id",               source = "e.id")
+    @Mapping(target = "type", source = "type")
+//    @Mapping(target = "type",             expression = "java(e.getType().name())")
+    @Mapping(target = "registrationInfo",
+            expression = "java(e.getVin() + \"V\" + e.getVoltage() + \"A\" + e.getCurrent() + e.getBatteryType().name())")
+    @Mapping(target = "conversionInfo",
+            expression = "java(e.getConversion() != null ? "
+                    + "e.getLicensePlate() + \" \" + "
+                    + "e.getConversion().getConvertedFuelTypes().stream()"
+                    + ".map(Enum::name)"
+                    + ".collect(Collectors.joining(\",\"))"
+                    + " : null)")
+    RegistrationInfoDTO toRegistrationInfoDto(ElectricVehicle e);
+
+    // Gasoline → VehicleRegistrationInfoDTO
+    @Mapping(target = "id",               source = "g.id")
+//    @Mapping(target = "type",             expression = "java(g.getType().name())")
+    @Mapping(target = "type", source = "type")
+    @Mapping(target = "registrationInfo",
+            expression = "java(g.getLicensePlate() + " +
+                    "g.getFuelTypes().stream().map(Enum::name).collect(Collectors.joining(\"-\")))")
+    RegistrationInfoDTO toRegistrationInfoDto(GasolineVehicle g);
+
+    // Polimórfico
+    default RegistrationInfoDTO toRegistrationInfoDto(Vehicle v) {
+        if (v instanceof DieselVehicle d)   return toRegistrationInfoDto(d);
+        if (v instanceof ElectricVehicle e) return toRegistrationInfoDto(e);
+        if (v instanceof GasolineVehicle g) return toRegistrationInfoDto(g);
+        throw new IllegalArgumentException("Unknown subtype: " + v.getClass());
     }
 }
